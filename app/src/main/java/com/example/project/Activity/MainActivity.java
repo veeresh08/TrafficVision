@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private void bottomNavigation() {
         FloatingActionButton floatingActionButton = findViewById(R.id.card_btn);
         LinearLayout homeBtn = findViewById(R.id.homeBtn);
+        LinearLayout sosBtn = findViewById(R.id.sosBtn);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,12 +37,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sosBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SosActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openHome();
             }
         });
+
+
 
     }
     public void openAction(){
