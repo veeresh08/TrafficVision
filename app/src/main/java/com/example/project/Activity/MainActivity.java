@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton floatingActionButton = findViewById(R.id.card_btn);
         LinearLayout homeBtn = findViewById(R.id.homeBtn);
         LinearLayout sosBtn = findViewById(R.id.sosBtn);
+        LinearLayout settings = findViewById(R.id.settings);
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SosActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
