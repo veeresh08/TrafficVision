@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "864888132480",
+    "project_id": "camera-and-gallery-7f600",
+    "storage_bucket": "camera-and-gallery-7f600.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864888132480:android:cdd15828aca52bd74e6765",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864888132480-212im36cqfmmlqscmpjcelplbja4gh6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvizIcrAUd-Cs2MqGh7c6TA1DmTuhsJ1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864888132480-212im36cqfmmlqscmpjcelplbja4gh6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864888132480:android:02074841b69319ad4e6765",
+        "android_client_info": {
+          "package_name": "net.smallacademy.cameraandgallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864888132480-212im36cqfmmlqscmpjcelplbja4gh6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvizIcrAUd-Cs2MqGh7c6TA1DmTuhsJ1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864888132480-212im36cqfmmlqscmpjcelplbja4gh6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
