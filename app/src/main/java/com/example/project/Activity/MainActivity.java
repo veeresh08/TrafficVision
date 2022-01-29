@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         sosBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
