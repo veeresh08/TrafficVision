@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.Activity.setting.SettingActivity;
 import com.example.project.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,8 +30,17 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout homeBtn = findViewById(R.id.homeBtn);
         LinearLayout sosBtn = findViewById(R.id.sosBtn);
         LinearLayout settings = findViewById(R.id.settings);
+        ConstraintLayout pay_now = findViewById(R.id.pay_now);
 
 
+        /*pay_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PayChallanActivity.class);
+                startActivity(intent);
+                //openAction();
+            }
+        }); */
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openHome();
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

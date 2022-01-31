@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.project.Activity.loginRegister.RegistrationActivity;
 import com.example.project.R;
 
 public class IntroActivity extends AppCompatActivity {
