@@ -1,10 +1,9 @@
-package com.example.project.Activity;
+package com.example.project.Activity.sos;
 import com.example.project.R;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -13,7 +12,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -25,20 +23,16 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.example.project.Activity.Contacts.ContactModel;
-import com.example.project.Activity.Contacts.CustomAdapter;
-import com.example.project.Activity.Contacts.DbHelper;
-import com.example.project.Activity.ShakeServices.ReactivateService;
-import com.example.project.Activity.ShakeServices.SensorService;
+import com.example.project.Activity.sos.Contacts.ContactModel;
+import com.example.project.Activity.sos.Contacts.CustomAdapter;
+import com.example.project.Activity.sos.Contacts.DbHelper;
+import com.example.project.Activity.sos.ShakeServices.ReactivateService;
+import com.example.project.Activity.sos.ShakeServices.SensorService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SosActivity extends AppCompatActivity {

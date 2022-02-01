@@ -1,4 +1,4 @@
-package com.example.project.Activity.ShakeServices;
+package com.example.project.Activity.sos.ShakeServices;
 
 
 

@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="background">#F0F4F3</color>
+    <color name="orange_btn">#ff5e00</color>
+
+
+
+
 </resources>
