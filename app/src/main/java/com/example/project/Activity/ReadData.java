@@ -58,7 +58,7 @@ public class ReadData extends AppCompatActivity {
         TextView tvViolation = findViewById(R.id.tvViolation);
         TextView tvLocation = findViewById(R.id.tvLocation);
         TextView tvAmount = findViewById(R.id.tvAmount);
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference = FirebaseDatabase.getInstance().getReference("Fine");
         reference.child(username).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {

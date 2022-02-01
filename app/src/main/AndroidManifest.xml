@@ -30,9 +30,7 @@
         <activity
             android:name=".Activity.setting.ProfileActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.Payment.ReadData"
-            android:exported="false"></activity>
+
 
         <receiver
             android:name=".Activity.sos.ShakeServices.ReactivateService"
