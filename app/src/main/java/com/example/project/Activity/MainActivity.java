@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.Activity.setting.SettingActivity;
+import com.example.project.Activity.sos.SosActivity;
 import com.example.project.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter, adapter2;
@@ -23,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigation();
+
+
+
+
+
+
     }
 
     private void bottomNavigation() {
@@ -32,15 +42,36 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout settings = findViewById(R.id.settings);
         ConstraintLayout pay_now = findViewById(R.id.pay_now);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        /*pay_now.setOnClickListener(new View.OnClickListener() {
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+            String uid = user.getUid();
+            TextView tvName = findViewById(R.id.tvName);
+
+            tvName.setText("Hi "+email);
+        }
+
+
+
+        pay_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PayChallanActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReadData.class);
                 startActivity(intent);
                 //openAction();
             }
-        }); */
+        });
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

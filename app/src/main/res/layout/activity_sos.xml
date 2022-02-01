@@ -5,20 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.SosActivity">
+    tools:context=".Activity.sos.SosActivity">
 
     <Button
         android:id="@+id/Button1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:background="#0F9D58"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:text="Add Emergency Contact "
-        android:textColor="#FFFFFF" />
+        android:textColor="#ffffff" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/item_background"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+
         android:id="@+id/ListView"/>
 
 </LinearLayout>

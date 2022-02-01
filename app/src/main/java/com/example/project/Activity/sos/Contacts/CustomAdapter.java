@@ -1,4 +1,4 @@
-package com.example.project.Activity.Contacts;
+package com.example.project.Activity.sos.Contacts;
 
 
 
