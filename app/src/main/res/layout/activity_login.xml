@@ -7,7 +7,7 @@
     tools:context=".Activity.loginRegister.LoginActivity"
     android:background="@color/white">
 
-
+git
     <ImageView
         android:id="@+id/reg_img"
         android:layout_width="match_parent"
