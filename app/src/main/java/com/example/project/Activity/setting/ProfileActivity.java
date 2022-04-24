@@ -113,6 +113,13 @@ public class ProfileActivity extends AppCompatActivity {
                 updatetofirebase();
             }
         });
+
+        btnupdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatetofirebase();
+            }
+        });
     }
 
     @Override

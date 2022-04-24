@@ -21,6 +21,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         ConstraintLayout update_profile = findViewById(R.id.update_profile);
+        ConstraintLayout changepwd = findViewById(R.id.changepwd);
         Button logout_btn = findViewById(R.id.logout_btn);
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -28,6 +29,15 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                //openAction();
+            }
+        });
+
+        changepwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, passwordRest.class);
                 startActivity(intent);
                 //openAction();
             }
