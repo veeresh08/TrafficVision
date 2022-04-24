@@ -21,10 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ReadData extends AppCompatActivity {
 
-
     DatabaseReference reference;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +42,10 @@ public class ReadData extends AppCompatActivity {
                     readData(username);
                 }else{
 
-                    Toast.makeText(ReadData.this,"PLease Enter Username",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReadData.this,"PLease Enter number plate",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
     }
 
     private void readData(String username) {
@@ -80,15 +75,11 @@ public class ReadData extends AppCompatActivity {
                     }else {
 
                         Toast.makeText(ReadData.this,"User Doesn't Exist",Toast.LENGTH_SHORT).show();
-
                     }
-
-
                 }else {
 
                     Toast.makeText(ReadData.this,"Failed to read",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

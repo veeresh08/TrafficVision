@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_shade_1"
+    android:background="@color/white"
     tools:context=".Activity.loginRegister.LoginActivity">
-
+    <ImageView
+        android:id="@+id/reg_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/loginbg2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!--edit text for user name-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idTILUserName"
@@ -17,19 +24,20 @@
         android:layout_marginTop="140dp"
         android:layout_marginEnd="20dp"
         android:hint="Enter User Name"
-        android:padding="5dp"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white">
+        android:padding="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtUserName"
+            android:background="@drawable/edittext_background"
+            android:drawableLeft="@drawable/account"
+            android:drawablePadding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+
+
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,12 +52,13 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:hint="Enter your Password"
-        android:padding="5dp"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white">
+        android:padding="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtPassword"
+
+            android:background="@drawable/edittext_background"
+            android:drawableLeft="@drawable/keylog"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
@@ -69,7 +78,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="25dp"
-        android:background="@drawable/button_back"
+        android:backgroundTint="@color/orange_btn"
         android:text="Login"
         android:textAllCaps="false"
 
@@ -87,7 +96,7 @@
         android:text="New User ? Registre Here"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+
         android:textSize="18sp" />
 
     <!--progress-bar for loading indicator-->

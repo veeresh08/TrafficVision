@@ -158,9 +158,6 @@ public class SensorService extends Service {
         }else{
             vibrator.vibrate(500);
         }
-
-
-
     }
 
     //For Build versions higher than Android Oreo, we launch

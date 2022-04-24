@@ -8,16 +8,21 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -25,19 +30,44 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.project.Activity.sos.Contacts.ContactModel;
+import com.example.project.Activity.sos.Contacts.DbHelper;
+import com.example.project.Activity.sos.ShakeServices.SensorService;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.example.project.R;
+import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnTokenCanceledListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class CameraFirebaseActivity extends AppCompatActivity {
@@ -45,11 +75,16 @@ public class CameraFirebaseActivity extends AppCompatActivity {
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
     ImageView selectedImage;
-    Button cameraBtn,galleryBtn;
+    Button cameraBtn, galleryBtn;
     String currentPhotoPath;
     StorageReference storageReference;
+    DatabaseReference dbreference;
 
-
+    String currentLocation = "veer";
+    int count = 3;
+    Uri filepath;
+    Bitmap bitmap;
+    String UserID = "";
 
 
     @Override
@@ -57,10 +92,15 @@ public class CameraFirebaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_firebase);
 
+
         selectedImage = findViewById(R.id.displayImageView);
         cameraBtn = findViewById(R.id.cameraBtn);
         galleryBtn = findViewById(R.id.galleryBtn);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserID = user.getUid();
+
+        dbreference = FirebaseDatabase.getInstance().getReference().child("pictures");
         storageReference = FirebaseStorage.getInstance().getReference();
 
         cameraBtn.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +110,143 @@ public class CameraFirebaseActivity extends AppCompatActivity {
             }
         });
 
-        galleryBtn.setOnClickListener(new View.OnClickListener() {
+        selectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+            public void onClick(View view) {
+
+                Dexter.withContext(getApplicationContext())
+                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                                Intent intent = new Intent();
+                                intent.setType("image/*");
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(Intent.createChooser(intent, "Please Select File"), 101);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                permissionToken.continuePermissionRequest();
+                            }
+                        }).check();
             }
         });
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getlocationofuse();
+
+                updatetofirebase();
+            }
+        });
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getlocationofuse() {
+
+
+        //create FusedLocationProviderClient to get the user location
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        //use the PRIORITY_BALANCED_POWER_ACCURACY so that the service doesn't use unnecessary power via GPS
+        //it will only use GPS at this very moment
+        fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY, new CancellationToken() {
+            @Override
+            public boolean isCancellationRequested() {
+                return false;
+            }
+            @NonNull
+            @Override
+            public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener) {
+                return null;
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                //check if location is null
+                //for both the cases we will create different messages
+                if(location!=null){
+
+                    //get the SMSManager
+
+                    //get the list of all the contacts in Database
+
+                    //send SMS to each contact
+
+                        String message = "http://maps.google.com/?q=" + location.getLatitude() + "," + location.getLongitude();
+                    currentLocation =message;
+
+                }else{
+                    String message= "GPS was turned off.Couldn't find location. ";
+                    SmsManager smsManager = SmsManager.getDefault();
+                    currentLocation =message;
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Check: ","OnFailure");
+                String message= "GPS was turned off.Couldn't find location.";
+                currentLocation =message;
+                }
+        });
+
+    }
+
+
+    public void updatetofirebase() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("File Uploader");
+        pd.show();
+
+
+        final StorageReference uploader=storageReference.child("pictures/"+"img"+System.currentTimeMillis());
+        uploader.putFile(filepath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        uploader.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                                final Map<String,Object> map=new HashMap<>();
+                                map.put("uimage",uri.toString());
+                                map.put("location",  currentLocation);
+                                map.put("timestamp", timeStamp);
+
+
+
+                                dbreference.child(UserID).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(snapshot.exists())
+                                            dbreference.child(UserID).updateChildren(map);
+                                        else
+                                            dbreference.child(UserID).setValue(map);
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+
+                                pd.dismiss();
+                                Toast.makeText(getApplicationContext(),"Updated Successfully",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        float percent=(100*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                        pd.setMessage("Uploaded :"+(int)percent+"%");
+                    }
+                });
 
     }
 
@@ -101,10 +271,9 @@ public class CameraFirebaseActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         if(requestCode == CAMERA_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
                 File f = new File(currentPhotoPath);
@@ -117,11 +286,7 @@ public class CameraFirebaseActivity extends AppCompatActivity {
                 this.sendBroadcast(mediaScanIntent);
 
                 uploadImageToFirebase(f.getName(),contentUri);
-
-
-
             }
-
         }
 
         if(requestCode == GALLERY_REQUEST_CODE){
@@ -138,6 +303,21 @@ public class CameraFirebaseActivity extends AppCompatActivity {
             }
 
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==101 && resultCode==RESULT_OK)
+        {
+            filepath=data.getData();
+            try {
+                InputStream inputStream=getContentResolver().openInputStream(filepath);
+                bitmap= BitmapFactory.decodeStream(inputStream);
+                selectedImage.setImageBitmap(bitmap);
+            }catch (Exception ex)
+            {
+                Toast.makeText(getApplicationContext(),ex.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        }
+
 
 
     }
