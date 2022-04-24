@@ -1,4 +1,5 @@
-package com.example.project.Activity.setting;
+package com.example.project.Activity;
+
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -43,10 +44,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ProfileActivity extends AppCompatActivity {
+public class StolenVehicle extends AppCompatActivity {
 
     ImageView uimage;
-    EditText uname;
+    EditText vehicle_number;
     EditText profile_email;
     EditText profile_number;
     EditText profile_address;
@@ -63,10 +64,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_stolen_vehicle);
 
         uimage=(ImageView)findViewById(R.id.uimage);
-        uname=(EditText) findViewById(R.id.uname);
+        vehicle_number=(EditText) findViewById(R.id.vehicle_number);
         profile_email=(EditText) findViewById(R.id.profile_email);
         profile_number=(EditText) findViewById(R.id.profile_number);
         profile_address=(EditText) findViewById(R.id.profile_address);
@@ -75,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         UserID=user.getUid();
 
-        dbreference=FirebaseDatabase.getInstance().getReference().child("userprofile");
+        dbreference=FirebaseDatabase.getInstance().getReference().child("stolenvehicle");
         storageReference=FirebaseStorage.getInstance().getReference();
 
         uimage.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +140,7 @@ public class ProfileActivity extends AppCompatActivity {
         pd.setTitle("File Uploader");
         pd.show();
 
-        final StorageReference uploader=storageReference.child("profileimages/"+"img"+System.currentTimeMillis());
+        final StorageReference uploader=storageReference.child("stolenimage/"+"img"+System.currentTimeMillis());
         uploader.putFile(filepath)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -149,7 +150,7 @@ public class ProfileActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 final Map<String,Object> map=new HashMap<>();
                                 map.put("uimage",uri.toString());
-                                map.put("uname",uname.getText().toString());
+                                map.put("vehicle_number",vehicle_number.getText().toString());
                                 map.put("profile_email",profile_email.getText().toString());
                                 map.put("profile_number",profile_number.getText().toString());
                                 map.put("profile_address",profile_address.getText().toString());
@@ -193,7 +194,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    uname.setText(snapshot.child("uname").getValue().toString());
+                    vehicle_number.setText(snapshot.child("vehicle_number").getValue().toString());
                     profile_email.setText(snapshot.child("profile_email").getValue().toString());
                     profile_number.setText(snapshot.child("profile_number").getValue().toString());
                     profile_address.setText(snapshot.child("profile_address").getValue().toString());

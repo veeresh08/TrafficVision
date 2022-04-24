@@ -67,7 +67,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout1"
+                android:id="@+id/report_now"
+
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="32dp"

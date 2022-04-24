@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project">
         <activity
+            android:name=".Activity.StolenVehicle"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ReadData"
             android:exported="false" />
         <activity
@@ -30,7 +33,6 @@
         <activity
             android:name=".Activity.setting.ProfileActivity"
             android:exported="false" />
-
 
         <receiver
             android:name=".Activity.sos.ShakeServices.ReactivateService"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.setting.ProfileActivity">
+    tools:context=".Activity.StolenVehicle">
 
     <ImageView
         android:id="@+id/uimage"
@@ -17,12 +17,12 @@
         android:layout_marginTop="15dp"
         />
     <EditText
-        android:id="@+id/uname"
+        android:id="@+id/vehicle_number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_bg"
         android:layout_marginTop="20dp"
-        android:hint="Your name"
+        android:hint="enter vehicle number"
         android:padding="13dp"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="10dp"
@@ -38,14 +38,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_bg"
         android:layout_marginTop="20dp"
-        android:hint="Your Email"
+        android:hint="enter vehicle number"
         android:padding="13dp"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="10dp"
         android:elevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uname"
+        app:layout_constraintTop_toBottomOf="@+id/vehicle_number"
         app:layout_constraintWidth_percent="0.8" />
 
     <EditText

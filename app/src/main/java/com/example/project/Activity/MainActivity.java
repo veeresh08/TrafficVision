@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout sosBtn = findViewById(R.id.sosBtn);
         LinearLayout settings = findViewById(R.id.settings);
         ConstraintLayout pay_now = findViewById(R.id.pay_now);
+        ConstraintLayout report_now = findViewById(R.id.report_now);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -62,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
             tvName.setText("Hi "+email);
         }
 
+        report_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StolenVehicle.class);
+                startActivity(intent);
+                //openAction();
+            }
+        });
 
 
         pay_now.setOnClickListener(new View.OnClickListener() {
