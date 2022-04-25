@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idRLHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.sos.SosActivity">
+    android:background="@color/white"
+    tools:context=".Activity.alert.AlertActivity">
 
-    <Button
-        android:id="@+id/Button1"
+    <!--recycler view for our data-->
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/idRVposts"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/post_rv_item" />
+
+    <!--progress bar for loading indicator-->
+    <ProgressBar
+        android:id="@+id/idPBLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_back" />
+
+    <!--floating action button-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/idFABAddpost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="Add Emergency Contact "
-        android:textColor="#ffffff" />
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="79dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#ff5e00"
 
-    <ListView
-        android:id="@+id/ListView"
-        android:layout_width="match_parent"
-        android:layout_height="660dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-
-        android:background="@drawable/item_background" />
+        app:tint="@color/white" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentBottom="true"
+
+        app:layout_constraintBottom_toBottomOf="@+id/idRVposts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -185,5 +204,4 @@
             app:tint="#ffffff" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

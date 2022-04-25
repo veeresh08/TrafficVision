@@ -76,6 +76,18 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+
+
+        <activity
+            android:name=".Activity.alert.EditpostActivity"
+            android:label="Edit Course" />
+        <activity
+            android:name=".Activity.alert.AddpostActivity"
+            android:label="Add Course" />
+        <activity android:name=".Activity.alert.AlertActivity" />
+
+
     </application>
 
 </manifest>

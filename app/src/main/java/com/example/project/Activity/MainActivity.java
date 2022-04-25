@@ -1,5 +1,6 @@
 package com.example.project.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.Activity.alert.AddpostActivity;
+import com.example.project.Activity.alert.AlertActivity;
 import com.example.project.Activity.setting.SettingActivity;
 import com.example.project.Activity.sos.SosActivity;
 import com.example.project.R;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout homeBtn = findViewById(R.id.homeBtn);
         LinearLayout sosBtn = findViewById(R.id.sosBtn);
         LinearLayout settings = findViewById(R.id.settings);
+        LinearLayout alertBtn = findViewById(R.id.alertBtn);
         ConstraintLayout pay_now = findViewById(R.id.pay_now);
         ConstraintLayout report_now = findViewById(R.id.report_now);
 
@@ -95,6 +99,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SosActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        alertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AlertActivity.class);
                 startActivity(intent);
             }
         });

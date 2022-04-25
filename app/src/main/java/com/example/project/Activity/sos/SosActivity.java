@@ -1,4 +1,8 @@
 package com.example.project.Activity.sos;
+import com.example.project.Activity.CameraFirebaseActivity;
+import com.example.project.Activity.MainActivity;
+import com.example.project.Activity.alert.AlertActivity;
+import com.example.project.Activity.setting.SettingActivity;
 import com.example.project.R;
 
 
@@ -24,6 +28,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,6 +37,7 @@ import com.example.project.Activity.sos.Contacts.CustomAdapter;
 import com.example.project.Activity.sos.Contacts.DbHelper;
 import com.example.project.Activity.sos.ShakeServices.ReactivateService;
 import com.example.project.Activity.sos.ShakeServices.SensorService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -101,7 +107,10 @@ public class SosActivity extends AppCompatActivity {
                 }
             }
         });
+
+        bottomNavigation();
     }
+
 
     //method to check if the service is running
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -179,6 +188,63 @@ public class SosActivity extends AppCompatActivity {
             intent.setData(Uri.parse("package:" + getPackageName()));
             startActivityForResult(intent, IGNORE_BATTERY_OPTIMIZATION_REQUEST);
         }
+
+    }
+
+    private void bottomNavigation() {
+        FloatingActionButton floatingActionButton = findViewById(R.id.card_btn);
+        LinearLayout homeBtn = findViewById(R.id.homeBtn);
+        LinearLayout sosBtn = findViewById(R.id.sosBtn);
+        LinearLayout alertBtn = findViewById(R.id.alertBtn);
+        LinearLayout settings = findViewById(R.id.settings);
+
+
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SosActivity.this, CameraFirebaseActivity.class);
+                startActivity(intent);
+                //openAction();
+            }
+        });
+
+
+        sosBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SosActivity.this, SosActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        alertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SosActivity.this, AlertActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SosActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SosActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
